@@ -1,0 +1,1 @@
+weapons = ['AK-47', 'AWP', 'USP-18', 'M4A1-S']

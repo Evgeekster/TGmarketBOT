@@ -4,12 +4,9 @@ import requests
 from bs4 import BeautifulSoup as BS
 import csv
 from config import API
-HOST = 'https://market.dota2.net/'
-URL = 'https://market.dota2.net/api/InventoryItems/?key='+API
-HEADERS = {
-    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.124 YaBrowser/22.9.3.886 Yowser/2.5 Safari/537.36'
-}
+HOST = 'https://market.csgo.com/'
+URL = 'https://market.csgo.com/api/QuickItems/?key='+API
+from config import HEADERS
 def get_html(url, params=''):
     r = requests.get(url, headers=HEADERS, params=params)
     return r
