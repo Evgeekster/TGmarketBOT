@@ -3,7 +3,7 @@ import time
 import telebot
 import config
 from telebot import types
-from DBReader import ReadDB
+from DBReader import ReadDB, get_url
 bot = telebot.TeleBot(config.TOKEN)
 
 from weapons import weapons
@@ -42,17 +42,20 @@ def main():
         if message.text == 'SSG':
             aks = ReadDB('SSG')
             print(aks)
+            print(get_url('SSG'))
+            # inls = types.InlineKeyboardMarkup(row_width=1)
             for items in aks:
-                bot.send_message(message.chat.id, items.format(message.from_user, bot.get_me()))
-
-
+                    bot.send_message(message.chat.id, items.format(message.from_user, bot.get_me()))
+                    # time.sleep(2)
+            #     inls.add()
             #
+            # bot.send_message(message.chat.id, 'y', reply_markup=inls)
 
 
 
-#     def MarkUps(message):
-#         weapons = types.InlineKeyboardMarkup(row_width=1)
-#         weapons.add(types.InlineKeyboardButton('AK-47', callback_data='ok'))
+    # def MarkUps(message):
+    #     weapons = types.InlineKeyboardMarkup(row_width=1)
+    #     weapons.add(types.InlineKeyboardButton('AK-47', callback_data='ok'))
 #         weapons.add(types.InlineKeyboardButton('AWP', callback_data='ok'))
 #         weapons.add(types.InlineKeyboardButton('KNIFE', callback_data='ok'))
 #         weapons.add(types.InlineKeyboardButton('M4A1', callback_data='ok'))
