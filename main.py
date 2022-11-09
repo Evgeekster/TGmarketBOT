@@ -1,12 +1,10 @@
-import time
-
 import telebot
-import config
+from dbholder import config
 from telebot import types
 from DBReader import ReadDB, get_url
 bot = telebot.TeleBot(config.TOKEN)
+from weapons import PISTOLS, GetKeyboarsForPistols
 
-from weapons import weapons
 
 # from weapons import weapons
 def main():
@@ -16,36 +14,43 @@ def main():
     #
     #
     #
-    # @bot.message_handler(content_types=['text'], commands=['start'])
-    #
-    # def Msg(message):
-    #     bot.send_message(message.chat.id, f'Привет! Я - бот, дающий тебе возможность купить скины\nпо выгодной цене'.format(message.from_user, bot.get_me()))
-    #     inl = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    #     item = types.KeyboardButton('CSGO')
-    #     inl.add(item)
-    #     bot.send_message(message.chat.id, 'выбери доступную мне игру'.format(message.from_user, bot.get_me()), reply_markup=inl)
+    @bot.message_handler(content_types=['text'], commands=['start'])
+    def Msg(message):
+        bot.send_message(message.chat.id, f'Привет! Я - бот, дающий тебе возможность купить скины\nпо выгодной цене'.format(message.from_user, bot.get_me()))
+        inl = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        item = types.KeyboardButton('CSGO')
+        inl.add(item)
+        bot.send_message(message.chat.id, 'выбери доступную мне игру'.format(message.from_user, bot.get_me()), reply_markup=inl)
+    # #
+    # #
+    # #
+    @bot.message_handler(content_types=['text'])
+    def GetTheGun(message):
+        if message.text == 'CSGO':
+            bot.send_message(message.chat.id, 'выбери категорию оружия'.format(message.from_user, bot.get_me()), reply_markup=GetKeyboarsForPistols(PISTOLS))
+
     #
     #
     #
     # @bot.message_handler(content_types=['text'])
-    # def GetTheGun(message):
-    #     if message.text == 'CSGO':
-    #
-    #         inl = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    #         inl.add(types.KeyboardButton('AK-47'))
-    #
-    #         bot.send_message(message.chat.id, 'выбери на что хочешь скин', reply_markup=inl)
-
-
-    @bot.message_handler(content_types=['text'])
-    def GetSkins(message):
-        if message.text == 'SSG':
-            aks = ReadDB('SSG')
-            print(aks)
-            print(get_url('SSG'))
-            # inls = types.InlineKeyboardMarkup(row_width=1)
+    # def GetSkins(message):
+        if message.text == 'USP-S':
+            bot.send_message(message.chat.id, 'хуй'.format(message.from_user, bot.get_me()))
+            aks = ReadDB('USP-S')
+            links = get_url('USP-S')
             for items in aks:
-                    bot.send_message(message.chat.id, items.format(message.from_user, bot.get_me()))
+                bot.send_message(message.chat.id, f'{items.format(message.from_user, bot.get_me())}' +  '\n' + f'{get_url(items).format(message.from_user, bot.get_me())}')
+        # if message.text == 'SSG':
+        #     aks = ReadDB('SSG')
+        #     links = get_url('SSG')
+        #     print(aks)
+        #     print(get_url('SSG'))
+            # inls = types.InlineKeyboardMarkup(row_width=1)
+        # guns = ReadDB()
+        # for items in guns:
+        #     bot.send_message(message.chat.id, f'{items.format(message.from_user, bot.get_me())}' +  '\n' + f'{get_url(items).format(message.from_user, bot.get_me())}')
+        #         # bot.send_message(message.chat.id, get_url(items).format(message.from_user, bot.get_me()))
+
                     # time.sleep(2)
             #     inls.add()
             #

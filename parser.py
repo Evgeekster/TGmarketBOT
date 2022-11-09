@@ -1,12 +1,10 @@
 import json
-import logging
 import requests
 from bs4 import BeautifulSoup as BS
-import csv
-from config import API
+from dbholder.config import API
 HOST = 'https://market.csgo.com/'
 URL = 'https://market.csgo.com/api/QuickItems/?key='+API
-from config import HEADERS
+from dbholder.config import HEADERS
 def get_html(url, params=''):
     r = requests.get(url, headers=HEADERS, params=params)
     return r
