@@ -1,5 +1,5 @@
 import telebot
-from dbholder import config
+import config
 from telebot import types
 from DBReader import ReadDB, get_url
 bot = telebot.TeleBot(config.TOKEN)
@@ -29,11 +29,6 @@ def main():
         if message.text == 'CSGO':
             bot.send_message(message.chat.id, 'выбери категорию оружия'.format(message.from_user, bot.get_me()), reply_markup=GetKeyboarsForPistols(PISTOLS))
 
-    #
-    #
-    #
-    # @bot.message_handler(content_types=['text'])
-    # def GetSkins(message):
         if message.text == 'USP-S':
             bot.send_message(message.chat.id, 'хуй'.format(message.from_user, bot.get_me()))
             aks = ReadDB('USP-S')

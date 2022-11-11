@@ -19,9 +19,9 @@ def Downloader():
     DB_NAME = data['db']
 
     for f in os.listdir(PATH_TO_FOLDER):
-        if not f.endswith(".csv"):
-            continue
-        os.remove(os.path.join(PATH_TO_FOLDER, f))
+        if f.endswith(".csv"):
+            # continue
+            os.remove(os.path.join(PATH_TO_FOLDER, f))
 
     os.chdir(PATH_TO_FOLDER)
     wget.download(URL)
