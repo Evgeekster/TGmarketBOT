@@ -1,9 +1,9 @@
 import telebot
 import config
 from telebot import types
-from DBReader import ReadDB, get_url
+from DBReader import ReadDB, get_url, get_rairty
 bot = telebot.TeleBot(config.TOKEN)
-from weapons import PISTOLS, GetKeyboarsForPistols
+from weapons import GetKeyboarsForPistols, GetWeapType, GetKeyboardFowWeapon, GUN_TYPES
 
 
 # from weapons import weapons
@@ -27,14 +27,34 @@ def main():
     @bot.message_handler(content_types=['text'])
     def GetTheGun(message):
         if message.text == 'CSGO':
-            bot.send_message(message.chat.id, 'выбери категорию оружия'.format(message.from_user, bot.get_me()), reply_markup=GetKeyboarsForPistols(PISTOLS))
+            bot.send_message(message.chat.id, 'выбери категорию оружия'.format(message.from_user, bot.get_me()), reply_markup=GetWeapType())
 
-        if message.text == 'USP-S':
-            bot.send_message(message.chat.id, 'хуй'.format(message.from_user, bot.get_me()))
-            aks = ReadDB('USP-S')
-            links = get_url('USP-S')
-            for items in aks:
-                bot.send_message(message.chat.id, f'{items.format(message.from_user, bot.get_me())}' +  '\n' + f'{get_url(items).format(message.from_user, bot.get_me())}')
+        if message.text in GUN_TYPES:
+            print(message.text)
+            bot.send_message(message.chat.id, 'выбери оружие'.format(message.from_user, bot.get_me()), reply_markup=GetKeyboardFowWeapon(message.text))
+
+        #ЭТА ХУЕТА ТРЕБУЕТ ФИКСА!!!!!!!!!!!!!!. ВЫВОДИТ МУЗЫКУ ПО НАЧАЛУ. ОСНОВНАЯ ЛОГИКА РАБОТАЕТ
+        aks = ReadDB(message.text)
+        links = get_url(message.text)
+        for items in aks:
+            bot.send_message(message.chat.id, f'{items.format(message.from_user, bot.get_me())}' +  '\n' + f'{get_url(items).format(message.from_user, bot.get_me())}' + '\n' + get_rairty(items).format(message.from_user, bot.get_me()))
+
+
+
+        # if message.text == 'USP-S':
+        #     bot.send_message(message.chat.id, 'хуй'.format(message.from_user, bot.get_me()))
+        #     aks = ReadDB('USP-S')
+        #     links = get_url('USP-S')
+        #     for items in aks:
+        #         bot.send_message(message.chat.id, f'{items.format(message.from_user, bot.get_me())}' +  '\n' + f'{get_url(items).format(message.from_user, bot.get_me())}')
+        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!__________
+        # if message.text in PISTOLS:
+        #     bot.send_message(message.chat.id, 'хуй'.format(message.from_user, bot.get_me()))
+        #     aks = ReadDB(message.text)
+        #     links = get_url(message.text)
+        #     for items in aks:
+        #         bot.send_message(message.chat.id, f'{items.format(message.from_user, bot.get_me())}' +  '\n' + f'{get_url(items).format(message.from_user, bot.get_me())}' + '\n' + get_rairty(items).format(message.from_user, bot.get_me()))
+        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11___________________
         # if message.text == 'SSG':
         #     aks = ReadDB('SSG')
         #     links = get_url('SSG')

@@ -26,6 +26,11 @@ def get_url(weapon):
                 # links.add
                 return (url_frog + str(row['c_classid']) + '-' + str(row['c_instanceid']) + '-' + str(row['c_market_hash_name'].replace(' ', '').replace('(', '').replace(')', '').replace('™', '').replace("'", '')) + '/')
 
-
+def get_rairty(weapon):
+    with open(name_db, encoding='utf-8') as r_file:
+        file_reader = csv.DictReader(r_file, delimiter=";")
+        for row in file_reader:
+            if weapon in row['c_market_hash_name']:
+                return str(row['c_rarity'])
 
 

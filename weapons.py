@@ -1,14 +1,41 @@
 from telebot import types
+from  DBReader import get_url, ReadDB
+# PISTOLS = ['Glock-18', 'USP-S','Dual Berettas', 'P250', 'Tec-9', 'CZ75-Auto', 'Desert Eagle', 'R8 Revolver', 'P2000', 'Five-SeveN']
+# PPS = ['MAC-10', 'MP7', 'UMP-45', 'P90', 'PP-Bizon', 'MP9']
+# SHOTGUNS = ['Nova']
+# HEAVY = ['M249']
+# ARS = ['M4A4']
+GUN_TYPES = ['PISTOLS', 'PPS', 'SHOTGUNS', 'HEAVY', 'ARS']
+GUNS = {
+    'PISTOLS': ['Glock-18', 'USP-S','Dual Berettas', 'P250', 'Tec-9', 'CZ75-Auto', 'Desert Eagle', 'R8 Revolver', 'P2000', 'Five-SeveN'],
+    'PPS': ['MAC-10', 'MP7', 'UMP-45', 'P90', 'PP-Bizon', 'MP9'],
+    'SHOTGUNS': ['Nova'],
+    'HEAVY':  ['M249'],
+    'ARS': ['M4A4']
+    }
 
-PISTOLS = ['GLOCK-17', 'USP-S','Dual Berettas', 'P250', 'Tec-9', 'CZ75-Auto', 'Desert Eagle', 'R8 Revolver', 'P2000', 'Five-Seven']
-PPS = ['MAC-10', 'MP7', 'UMP-45', 'P90', 'PP-Bizon', 'MP9']
-SHOTGUNS = []
-HEAVY = []
-ARS = []
+def GetWeapType():
+    inl = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    inl.add((types.KeyboardButton('PPS')))
+    inl.add((types.KeyboardButton('SHOTGUNS')))
+    inl.add((types.KeyboardButton('HEAVY')))
+    inl.add((types.KeyboardButton('ARS')))
+    inl.add((types.KeyboardButton('PISTOLS')))
+    return inl
+
+def GetKeyboardFowWeapon(weapon):
+    inl = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    for key, value in GUNS.items():
+        if key == weapon:
+            print(value)
+            for weapon in value:
+                inl.add(types.KeyboardButton(weapon))
+    return inl
+
 def GetKeyboarsForPistols(PISTOLS):
     inl = types.ReplyKeyboardMarkup(resize_keyboard=True)
     for weapon in PISTOLS:
-        inl.add(types.KeyboardButton(text=weapon))
+        inl.add(types.KeyboardButton(weapon))
     return inl
 # MAC-10 = give weapon_mac10
 # MP7 = give weapon_mp7
@@ -22,3 +49,4 @@ def GetKeyboarsForPistols(PISTOLS):
 # UMP-45 = give weapon_ump45
 # P90 = give weapon_p90
 # PP-Bizon = give weapon_bizon
+print(GetKeyboardFowWeapon('ARS'))
