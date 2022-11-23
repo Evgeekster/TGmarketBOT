@@ -1,7 +1,9 @@
-
+import telebot
+import config
+from telebot import types
 from DBReader import ReadDB, get_url, get_rairty
 bot = telebot.TeleBot(config.TOKEN)
-from weapons import GetKeyboarsForPistols, GetWeapType, GetKeyboardFowWeapon, GUN_TYPES
+from weapons import GetKeyboarsForPistols, GetWeapType, GetKeyboardFowWeapon, GUN_TYPES, GUNS
 
 
 # from weapons import weapons
@@ -32,12 +34,14 @@ def main():
             bot.send_message(message.chat.id, 'выбери оружие'.format(message.from_user, bot.get_me()), reply_markup=GetKeyboardFowWeapon(message.text))
 
 
-        #ЭТА ХУЕТА ТРЕБУЕТ ФИКСА!!!!!!!!!!!!!!. ВЫВОДИТ МУЗЫКУ ПО НАЧАЛУ. ОСНОВНАЯ ЛОГИКА РАБОТАЕТ
-        if message.text != '':
-            aks = ReadDB(message.text)
-            links = get_url(message.text)
-            for items in aks:
-                bot.send_message(message.chat.id, f'{items.format(message.from_user, bot.get_me())}' +  '\n' + f'{get_url(items).format(message.from_user, bot.get_me())}' + '\n' + get_rairty(items).format(message.from_user, bot.get_me()))
+
+        for key, value in GUNS.items():
+
+            if message.text in value:
+                aks = ReadDB(message.text)
+                links = get_url(message.text)
+                for items in aks:
+                    bot.send_message(message.chat.id, f'{items.format(message.from_user, bot.get_me())}' +  '\n' + f'{get_url(items).format(message.from_user, bot.get_me())}' + '\n' + get_rairty(items).format(message.from_user, bot.get_me()))
 
 
 

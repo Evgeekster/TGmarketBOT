@@ -5,6 +5,8 @@ from config import API
 HOST = 'https://market.csgo.com/'
 URL = 'https://market.csgo.com/api/QuickItems/?key='+API
 from config import HEADERS
+
+
 def get_html(url, params=''):
     r = requests.get(url, headers=HEADERS, params=params)
     return r
