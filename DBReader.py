@@ -8,12 +8,12 @@ name_db = os.listdir(PATH_TO_FOLDER)[0]
 
 weaps = set()
 
-def ReadDB(weapon):
+def ReadDB(weapon, skin):
 
     with open(name_db, encoding='utf-8') as r_file:
         file_reader = csv.DictReader(r_file, delimiter=";")
         for row in file_reader:
-            if weapon in row['c_market_hash_name']:
+            if (weapon and skin) in row['c_market_hash_name']:
                  weaps.add(row['c_market_hash_name'])
     return weaps
 
